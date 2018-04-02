@@ -166,6 +166,26 @@
 
     var canvas = document.getElementById('myCanvas')
 
+    // function called when a link is clicked
+    function onLinkClicked() {
+        // Get the text inside the link element
+        // 'this' is the element beeing clicked
+        // We use jQuery's text() method to get the content
+        // Check this link for more infos about manipulating elements
+        // https://learn.jquery.com/using-jquery-core/manipulating-elements/
+        var text = $(this).text()
+
+        // Print the text in the console
+        // right click > inspect to see this.
+        console.log('You clicked on', text)
+    }
+
+    // Select all links inside #myCanvas
+    // and register a click listener.
+    // Select elements: https://learn.jquery.com/using-jquery-core/selecting-elements/
+    // Events basics: https://learn.jquery.com/events/event-basics/
+    $('#myCanvas a').click(onLinkClicked)
+
     // get window size
     var height = $(window).height()
     var width = $(window).width()
