@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic cloud</title>
+</head>
+</html>
+
+<canvas id="myCanvas" width="500" height=500></canvas>
+
+<script src="js/jquery-3.3.1.js"></script>
+<script src="js/tagcanvas.js"></script>
+<script>
+    $(document).ready(function () {
+        /**
+         * Function called when an activity is clicked
+         * @param {Object} activity: The activity object 
+         */
+        function onActivityClicked(activity) {
+            alert('You clicked on\n' + JSON.stringify(activity, null, 2))
+        }
+
+        /**
+         * Initialize the word cloud
+         */
+        function initializeTags(activities) {
+            var canvas = $('#myCanvas')
+
+            // create a link element for each activity
+            activities.forEach(function (activity) {
+                // create a link element <a>Text</a>
+                var link = document.createElement('a')
+                $(link).text(activity.query)
+
+                // Add a click handler for the link
+                // When the link is clicked, call onActivityClicked function
+                // and pass the activity object as parameter
+                $(link).click(function (e) {
+                    // Turn off default behavior when a link is clicked
+                    // This prevents the browser to navigate to the link url
+                    e.preventDefault()
+                    onActivityClicked(activity)
+                })
+
+                // add the link inside <canvas>
+                $(canvas).append(link)
+            })
+
+            TagCanvas.Start('myCanvas')
+        }
+
+        // 1. Request all activities stored in data.json file
+        $.ajax('/data.json')
+            .done(function (data) {
+                // print result in console
+                console.log('received', data.length, 'activities', data)
+
+                // select maximum 100 elements and build the word cloud
+                var activities = data.slice(0, 100)
+                initializeTags(activities)
+            })
+            .fail(function (jqXHR, textStatus) {
+                // If the request fails for any reason
+                // We can still initialize the word cloud with static activities
+                console.log('Cannot load activities from /data.json')
+                const sampleActivities = [
+                    {
+                        "query": "upload.wikimedia.org",
+                        "time": "2018-03-02T08:00:00.000Z",
+                        "url": "https://www.google.com/url?q=https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/NASA_World_Wind.jpg/220px-NASA_World_Wind.jpg&usg=AFQjCNEyUz928geeUQ2FaRz5W821VqIiiQ"
+                    },
+                    {
+                        "query": "eductice.ens-lyon.fr",
+                        "time": "2018-03-02T04:00:00.000Z",
+                        "url": "https://www.google.com/url?q=http://eductice.ens-lyon.fr/EducTice/recherche/geomatique/veille/Globes-virtuels/Worldwind/Worldwind/image_preview&usg=AFQjCNHLmToadVd0yEDb6Mlc0IrgZpP0yw"
+                    },
+                ]
+
+                console.log('using sample activities instead', sampleActivities)
+                initializeTags(sampleActivities)
+            })
+    });
+</script>
+</body>
+</html>
