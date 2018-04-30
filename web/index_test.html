@@ -7,20 +7,84 @@
     <style>
 
         h1 {
-            position: absolute;
+            position: relative;
         }
 
         body {
             margin: 0;
 
         }
+        * {
+            box-sizing: border-box;
+        }
 
+        body {
+            margin: 0;
+        }
+        select {
+            width: 100%;
+            padding: 10px 10px;
+            text-align: left;
+            border: none;
+            border-radius: 4px;
+            background-color: #f1f1f1;
+        }
+        /* Style the header */
+        .header {
+            background-color:#BDBDBD;
+            padding: 3px;
+            text-align: left;
+            font-family: Helvetica;
+            font-size: 10px;
+
+        }
+
+        /* Style the top navigation bar */
+        .topnav {
+            overflow: hidden;
+            background-color: #424242;
+            font-size: smaller;
+            font-family: Helvetica;
+        }
+
+        /* Style the topnav links */
+        .topnav a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        /* Change color on hover */
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
     </style>
+</head>
+<body>
 
+<div class="header">
+    <h1>Google Image Data Activity</h1>
+</div>
+
+<div class="topnav">
+    <a href="#"> Février - Mars 2018</a>
+    <a href="#"> Décembre 2017 - janvier 2018</a>
+    <a href="#"> Octobre - novembre 2017 </a>
+    <a href="#"> Août - septembre 2017 </a>
+</div>
+
+<form>
+    <select id="Temps" name="temps">
+        <option value="temps">jour</option>
+        <option value="temps">nuit</option>
+    </select>
+</form>
 </head>
 
-<h1 style="background-color:black;">Google Image Data Activity</h1>
-<h1 style="color:white;">Google Image Data Activity</h1>
 
 </html>
 
@@ -219,7 +283,7 @@
     TagCanvas.radiusZ = 3
     TagCanvas.textColour = '#100'
     TagCanvas.shape = "sphere"
-    TagCanvas.outlineColour = "#2a4bff"
+    TagCanvas.outlineColour = "#100"
     TagCanvas.textHeight = 29
     TagCanvas.outlineMethod = "classic"
     TagCanvas.maxSpeed = 0.1
